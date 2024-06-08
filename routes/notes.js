@@ -22,8 +22,8 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
 router.post('/addnote', [
     //    validates the user inputs
 
-    body('tittle', 'Enter a valid title').isLength({ min: 1 }),
-    body('tittle', "title can't be blank").exists(),
+    body('title', 'Enter a valid title').isLength({ min: 1 }),
+    body('title', "title can't be blank").exists(),
     body('description', 'description must be at least 10 character').isLength({ min: 1 }),
     body('description', "description can't be blank").exists(),
     // body('author', 'enter a valid author name').isLength({
@@ -34,7 +34,7 @@ router.post('/addnote', [
     try {
 
 
-        const { tittle, description, author } = req.body;
+        const { title, description, author } = req.body;
         // if there are errors, return bad request and err messages
 
         const errors = validationResult(req);
@@ -42,7 +42,7 @@ router.post('/addnote', [
             return res.status(400).json({ errors: errors.array() });
         }
         const note = new Notes({
-            tittle, description, author, user: req.user.id
+            title, description, author, user: req.user.id
         })
         const savedNote = await note.save()
         res.json(savedNote)
@@ -55,13 +55,13 @@ router.post('/addnote', [
 
 //Route 3: update an exiting note using :"put" "/api/notes/update" requires login 
 router.put('/updatenote/:id', fetchuser, async (req, res) => {
-    const { tittle, description, author } = req.body;
+    const { title, description, author } = req.body;
     // create a newnote object
     try {
 
 
         const newNote = {}
-        if (tittle) { newNote.tittle = tittle }
+        if (title) { newNote.title = title }
         if (description) { newNote.description = description }
         if (author) { newNote.author = author }
 
