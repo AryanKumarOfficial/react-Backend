@@ -22,9 +22,9 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
 router.post('/addnote', [
     //    validates the user inputs
 
-    body('tittle', 'Enter a valid title').isLength({ min: 3 }),
+    body('tittle', 'Enter a valid title').isLength({ min: 1 }),
     body('tittle', "title can't be blank").exists(),
-    body('description', 'description must be at least 10 character').isLength({ min: 10 }),
+    body('description', 'description must be at least 10 character').isLength({ min: 1 }),
     body('description', "description can't be blank").exists(),
     // body('author', 'enter a valid author name').isLength({
     //     min: 3
